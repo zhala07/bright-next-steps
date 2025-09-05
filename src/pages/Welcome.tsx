@@ -18,7 +18,7 @@ export const Welcome: React.FC = () => {
 
   return (
     <QuizLayout showProgress={false}>
-      <QuizCard>
+      <div className="rounded-[24px] bg-[var(--cardBackground)] shadow-[0_10px_30px_rgba(0,0,0,0.10)] p-6 md:p-10 transition-all duration-300 hover:scale-[1.02] text-[var(--text)]">
         <div className="text-center" style={{ paddingTop: '16px' }}>
           <div className="space-y-2 mb-4">
             <h1 className="text-3xl md:text-4xl font-semibold text-[var(--text)]" style={{ lineHeight: '1.4' }}>
@@ -59,7 +59,7 @@ export const Welcome: React.FC = () => {
             </div>
           </div>
         </div>
-      </QuizCard>
+      </div>
     </QuizLayout>
   );
 };
