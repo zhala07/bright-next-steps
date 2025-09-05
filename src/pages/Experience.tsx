@@ -19,7 +19,7 @@ export const Experience: React.FC = () => {
 
   const handleNext = () => {
     setExperienceBand(selectedBand);
-    setCurrentStep(21);
+    setCurrentStep(10);
     navigate('/quiz/review');
   };
 
@@ -38,7 +38,7 @@ export const Experience: React.FC = () => {
           
           <div className="space-y-4">
             <div className="text-sm text-text-muted">
-              Step 20 of 21
+              Step 9 of 10
             </div>
             <h1 className="text-2xl md:text-3xl font-bold text-text">
               Your experience level

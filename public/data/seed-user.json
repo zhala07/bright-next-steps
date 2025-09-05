@@ -1,10 +1,10 @@
 {
   "current_role": "Software Engineer",
   "goal": "switch_soon",
-  "riasec_vector": {"R":2,"I":5,"A":3,"S":4,"E":5,"C":4},
-  "work_style": {"conscientiousness":"high","extraversion":"high","pace":"steady"},
+  "picked_interests": ["Data detective (I)", "Initiative taker or persuader (E)", "People helper or teacher (S)"],
+  "work_style": {"conscientiousness":"high","extraversion":"high"},
   "values": ["Impact","Autonomy"],
-  "criteria": {"salary_band":"mid","work_mode":"hybrid","company_size":"scaleup"},
+  "criteria": {"work_mode":"hybrid","salary_band":"mid"},
   "domain": ["Product","Data"],
   "experience_band": "3_to_7"
 }

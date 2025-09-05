@@ -35,7 +35,7 @@ export const Domains: React.FC = () => {
 
   const handleNext = () => {
     setDomain(selectedDomains);
-    setCurrentStep(20);
+    setCurrentStep(9);
     navigate('/quiz/experience');
   };
 

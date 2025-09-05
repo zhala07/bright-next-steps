@@ -76,10 +76,24 @@ export const Results: React.FC = () => {
     { day: 14, action: 'Ship a public post summarizing your learnings and next steps', duration: '15 min' }
   ];
 
-  const topRiasec = Object.entries(quizState.riasec_vector)
-    .sort(([,a], [,b]) => b - a)
-    .slice(0, 2)
-    .map(([key]) => key);
+  const getTopInterests = () => {
+    // Extract interest letters from picked interests
+    const interestMap: { [key: string]: string } = {
+      'Hands-on builder (R)': 'R',
+      'Data detective (I)': 'I', 
+      'Creative maker (A)': 'A',
+      'People helper or teacher (S)': 'S',
+      'Initiative taker or persuader (E)': 'E',
+      'Organizer or systems keeper (C)': 'C'
+    };
+    
+    return quizState.picked_interests
+      .map(interest => interestMap[interest])
+      .filter(Boolean)
+      .slice(0, 2);
+  };
+
+  const topInterests = getTopInterests();
 
   return (
     <QuizLayout showProgress={false}>
@@ -141,7 +155,7 @@ export const Results: React.FC = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
               <div>
                 <div className="font-medium text-text">Top Interests</div>
-                <div className="text-sm text-text-muted">{topRiasec.join(', ')}</div>
+                <div className="text-sm text-text-muted">{topInterests.join(', ')}</div>
               </div>
               <div>
                 <div className="font-medium text-text">Work Style</div>

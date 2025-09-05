@@ -2,25 +2,14 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { supabase } from '@/lib/supabase';
 
-export interface RiasecVector {
-  R: number; // Realistic
-  I: number; // Investigative  
-  A: number; // Artistic
-  S: number; // Social
-  E: number; // Enterprising
-  C: number; // Conventional
-}
-
 export interface WorkStyle {
   conscientiousness: 'low' | 'medium' | 'high';
   extraversion: 'low' | 'medium' | 'high';
-  pace: 'fast' | 'steady' | 'relaxed';
 }
 
 export interface Criteria {
-  salary_band: 'entry' | 'mid' | 'senior' | 'executive';
+  salary_band: 'low' | 'mid' | 'high';
   work_mode: 'remote' | 'hybrid' | 'onsite';
-  company_size: 'startup' | 'scaleup' | 'enterprise';
 }
 
 export interface QuizState {
@@ -31,7 +20,7 @@ export interface QuizState {
   // User responses
   current_role?: string;
   goal?: 'explore' | 'switch_soon' | 'grow_in_place' | 'not_sure';
-  riasec_vector: RiasecVector;
+  picked_interests: string[];
   work_style: Partial<WorkStyle>;
   values: string[];
   criteria: Partial<Criteria>;
@@ -50,7 +39,7 @@ export interface QuizState {
 export interface QuizActions {
   setCurrentStep: (step: number) => void;
   setGoal: (goal: QuizState['goal']) => void;
-  setRiasecValue: (dimension: keyof RiasecVector, value: number) => void;
+  setPickedInterests: (interests: string[]) => void;
   setWorkStyle: (key: keyof WorkStyle, value: string) => void;
   setValues: (values: string[]) => void;
   setCriteria: (key: keyof Criteria, value: string) => void;
@@ -64,8 +53,8 @@ export interface QuizActions {
 
 const initialState: QuizState = {
   currentStep: 1,
-  totalSteps: 21,
-  riasec_vector: { R: 3, I: 3, A: 3, S: 3, E: 3, C: 3 },
+  totalSteps: 10,
+  picked_interests: [],
   work_style: {},
   values: [],
   criteria: {},
@@ -87,10 +76,8 @@ export const useQuizStore = create<QuizState & QuizActions>()(
         get().saveToLocalStorage();
       },
       
-      setRiasecValue: (dimension, value) => {
-        set((state) => ({
-          riasec_vector: { ...state.riasec_vector, [dimension]: value }
-        }));
+      setPickedInterests: (picked_interests) => {
+        set({ picked_interests });
         get().saveToLocalStorage();
       },
       
@@ -130,13 +117,13 @@ export const useQuizStore = create<QuizState & QuizActions>()(
           set({
             current_role: seedData.current_role,
             goal: seedData.goal === 'Switch soon' ? 'switch_soon' : seedData.goal,
-            riasec_vector: seedData.riasec_vector,
+            picked_interests: seedData.picked_interests,
             work_style: seedData.work_style,
             values: seedData.values,
             criteria: seedData.criteria,
             domain: seedData.domain,
-            experience_band: seedData.experience_band === '3 to 7' ? '3_to_7' : seedData.experience_band,
-            currentStep: 21, // Go to results
+            experience_band: seedData.experience_band === '3–7' ? '3_to_7' : seedData.experience_band,
+            currentStep: 10, // Go to results
           });
         } catch (error) {
           console.error('Failed to load seed data:', error);
@@ -160,7 +147,7 @@ export const useQuizStore = create<QuizState & QuizActions>()(
             .upsert({
               current_role: state.current_role,
               goal: state.goal,
-              riasec_vector: state.riasec_vector,
+              picked_interests: state.picked_interests,
               work_style: state.work_style,
               values: state.values,
               criteria: state.criteria,
@@ -182,7 +169,7 @@ export const useQuizStore = create<QuizState & QuizActions>()(
       partialize: (state) => ({
         currentStep: state.currentStep,
         goal: state.goal,
-        riasec_vector: state.riasec_vector,
+        picked_interests: state.picked_interests,
         work_style: state.work_style,
         values: state.values,
         criteria: state.criteria,

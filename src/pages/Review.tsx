@@ -9,11 +9,6 @@ export const Review: React.FC = () => {
   const quizState = useQuizStore();
   const navigate = useNavigate();
 
-  const topRiasec = Object.entries(quizState.riasec_vector)
-    .sort(([,a], [,b]) => b - a)
-    .slice(0, 2)
-    .map(([key]) => key);
-
   const handleSeeResults = () => {
     navigate('/quiz/results');
   };
@@ -27,7 +22,7 @@ export const Review: React.FC = () => {
         navigate('/quiz/interests');
         break;
       case 'workstyle':
-        navigate('/quiz/work-style');
+        navigate('/quiz/work-style-1');
         break;
       case 'values':
         navigate('/quiz/values');
@@ -55,7 +50,7 @@ export const Review: React.FC = () => {
           
           <div className="space-y-4">
             <div className="text-sm text-text-muted">
-              Step 21 of 21
+              Step 10 of 10
             </div>
             <h1 className="text-2xl md:text-3xl font-bold text-text">
               Review your responses
@@ -85,8 +80,8 @@ export const Review: React.FC = () => {
             <div className="p-4 bg-card rounded-xl">
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="font-semibold text-text">Top interests</h3>
-                  <p className="text-text-muted">{topRiasec.join(', ')}</p>
+                  <h3 className="font-semibold text-text">Picked interests</h3>
+                  <p className="text-text-muted">{quizState.picked_interests.join(', ')}</p>
                 </div>
                 <Button variant="ghost" size="sm" onClick={() => handleEdit('interests')}>
                   Edit
@@ -101,8 +96,7 @@ export const Review: React.FC = () => {
                   <h3 className="font-semibold text-text">Work style</h3>
                   <p className="text-text-muted">
                     {quizState.work_style.conscientiousness} conscientiousness, {' '}
-                    {quizState.work_style.extraversion} extraversion, {' '}
-                    {quizState.work_style.pace} pace
+                    {quizState.work_style.extraversion} extraversion
                   </p>
                 </div>
                 <Button variant="ghost" size="sm" onClick={() => handleEdit('workstyle')}>
@@ -131,8 +125,7 @@ export const Review: React.FC = () => {
                   <h3 className="font-semibold text-text">Preferences</h3>
                   <p className="text-text-muted">
                     {quizState.criteria.salary_band} salary, {' '}
-                    {quizState.criteria.work_mode} work, {' '}
-                    {quizState.criteria.company_size} company
+                    {quizState.criteria.work_mode} work
                   </p>
                 </div>
                 <Button variant="ghost" size="sm" onClick={() => handleEdit('criteria')}>
