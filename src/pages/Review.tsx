@@ -30,8 +30,8 @@ export const Review: React.FC = () => {
       case 'criteria':
         navigate('/quiz/criteria');
         break;
-      case 'domains':
-        navigate('/quiz/domains');
+      case 'background-skills':
+        navigate('/quiz/background-skills');
         break;
       case 'experience':
         navigate('/quiz/experience');
@@ -134,14 +134,20 @@ export const Review: React.FC = () => {
               </div>
             </div>
 
-            {/* Domains */}
+            {/* Background and Skills */}
             <div className="p-4 bg-card rounded-xl">
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="font-semibold text-text">Tech domains</h3>
-                  <p className="text-text-muted">{quizState.domain.join(', ')}</p>
+                  <h3 className="font-semibold text-text">Background and skills</h3>
+                  <div className="text-text-muted text-sm space-y-1">
+                    <p><span className="font-medium">Background:</span> {quizState.background || 'Not selected'}</p>
+                    <p><span className="font-medium">Skills:</span> {quizState.skills.length > 0 ? 
+                      quizState.skills.map(s => `${s.name} (${s.level})`).join(', ') : 
+                      'None selected'
+                    }</p>
+                  </div>
                 </div>
-                <Button variant="ghost" size="sm" onClick={() => handleEdit('domains')}>
+                <Button variant="ghost" size="sm" onClick={() => handleEdit('background-skills')}>
                   Edit
                 </Button>
               </div>

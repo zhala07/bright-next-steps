@@ -24,7 +24,7 @@ export const Experience: React.FC = () => {
   };
 
   const handleBack = () => {
-    navigate('/quiz/domains');
+    navigate('/quiz/background-skills');
   };
 
   return (

@@ -5,6 +5,13 @@
   "work_style": {"conscientiousness":"high","extraversion":"high"},
   "values": ["Impact","Autonomy"],
   "criteria": {"work_mode":"hybrid","salary_band":"mid"},
-  "domain": ["Product","Data"],
+  "background": "Software Engineering",
+  "skills": [
+    {"name":"Stakeholder Communication","level":"Strong"},
+    {"name":"Requirements Gathering","level":"Working"},
+    {"name":"SQL","level":"Working"},
+    {"name":"Agile and Scrum","level":"Strong"},
+    {"name":"Writing and Documentation","level":"Working"}
+  ],
   "experience_band": "3_to_7"
 }

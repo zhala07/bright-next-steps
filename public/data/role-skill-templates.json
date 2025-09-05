@@ -1,0 +1,78 @@
+[
+  {
+    "title": "Product Manager",
+    "skills": ["Stakeholder Communication", "Requirements Gathering", "Project Management", "SQL", "Writing and Documentation"]
+  },
+  {
+    "title": "Business Analyst", 
+    "skills": ["Requirements Gathering", "SQL", "Data Analysis", "Writing and Documentation", "Stakeholder Communication"]
+  },
+  {
+    "title": "Tech Recruiter",
+    "skills": ["Stakeholder Communication", "Sales and Discovery", "Writing and Documentation", "Project Management"]
+  },
+  {
+    "title": "Software Developer",
+    "skills": ["Programming", "SQL", "Agile and Scrum", "Cloud", "Writing and Documentation"]
+  },
+  {
+    "title": "Data Scientist",
+    "skills": ["Programming", "SQL", "Data Analysis", "Cloud", "Writing and Documentation"]
+  },
+  {
+    "title": "Business Intelligence Analyst",
+    "skills": ["SQL", "Data Analysis", "Requirements Gathering", "Writing and Documentation", "Stakeholder Communication"]
+  },
+  {
+    "title": "Information Security Analyst",
+    "skills": ["Networking and Security", "Programming", "Writing and Documentation", "Requirements Gathering"]
+  },
+  {
+    "title": "Computer Systems Engineer or Architect",
+    "skills": ["Programming", "Cloud", "Networking and Security", "Requirements Gathering", "Writing and Documentation"]
+  },
+  {
+    "title": "Web and Digital Interface Designer",
+    "skills": ["UI Design", "UX Research", "Programming", "Stakeholder Communication", "Writing and Documentation"]
+  },
+  {
+    "title": "Web Developer",
+    "skills": ["Programming", "UI Design", "SQL", "Agile and Scrum", "Writing and Documentation"]
+  },
+  {
+    "title": "Software QA Analyst or Tester",
+    "skills": ["QA and Testing", "Programming", "Agile and Scrum", "Requirements Gathering", "Writing and Documentation"]
+  },
+  {
+    "title": "Computer User Support Specialist",
+    "skills": ["Stakeholder Communication", "Writing and Documentation", "Networking and Security", "Requirements Gathering"]
+  },
+  {
+    "title": "Project Management Specialist",
+    "skills": ["Project Management", "Stakeholder Communication", "Agile and Scrum", "Requirements Gathering", "Writing and Documentation"]
+  },
+  {
+    "title": "Computer Systems Analyst",
+    "skills": ["Requirements Gathering", "SQL", "Data Analysis", "Stakeholder Communication", "Writing and Documentation"]
+  },
+  {
+    "title": "Technical Writer",
+    "skills": ["Writing and Documentation", "Requirements Gathering", "Stakeholder Communication", "UX Research"]
+  },
+  {
+    "title": "Human Factors Engineer or Ergonomist",
+    "skills": ["UX Research", "Requirements Gathering", "Writing and Documentation", "Stakeholder Communication"]
+  },
+  {
+    "title": "Market Research Analyst or Marketing Specialist",
+    "skills": ["Data Analysis", "Writing and Documentation", "Stakeholder Communication", "Requirements Gathering"]
+  },
+  {
+    "title": "Sales Engineer", 
+    "skills": ["Sales and Discovery", "Stakeholder Communication", "Writing and Documentation", "Programming"]
+  },
+  {
+    "title": "Database Architect",
+    "skills": ["SQL", "Programming", "Requirements Gathering", "Writing and Documentation", "Cloud"]
+  }
+]

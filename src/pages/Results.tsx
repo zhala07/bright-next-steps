@@ -25,38 +25,207 @@ export const Results: React.FC = () => {
   }, []);
 
   const calculateMatches = async () => {
-    // Simplified scoring algorithm based on the requirements
-    const mockMatches: CareerMatch[] = [
-      {
-        title: 'Product Manager',
-        fitScore: 92,
-        fitReason: 'High Investigative and Enterprising interests, collaborative work style, values Impact',
-        skillsToAdd: [
-          { skill: 'SQL', resource: 'https://sqlbolt.com' },
-          { skill: 'Product Analytics', resource: 'https://mixpanel.com/learn' }
-        ]
-      },
-      {
-        title: 'Business Analyst',
-        fitScore: 87,
-        fitReason: 'Strong analytical thinking and communication skills alignment',
-        skillsToAdd: [
-          { skill: 'Data Visualization', resource: 'https://tableau.com/learn' },
-          { skill: 'Process Mapping', resource: 'https://lucidchart.com/blog' }
-        ]
-      },
-      {
-        title: 'Tech Recruiter',
-        fitScore: 82,
-        fitReason: 'Excellent people skills and growth-oriented mindset',
-        skillsToAdd: [
-          { skill: 'Technical Interviewing', resource: 'https://interviewing.io' },
-          { skill: 'Sourcing', resource: 'https://sourcingcertification.com' }
-        ]
-      }
-    ];
+    try {
+      // Load role templates and role-skill templates
+      const [roleTemplatesRes, roleSkillTemplatesRes] = await Promise.all([
+        fetch('/data/role-templates.json'),
+        fetch('/data/role-skill-templates.json')
+      ]);
+      
+      const roleTemplates = await roleTemplatesRes.json();
+      const roleSkillTemplates = await roleSkillTemplatesRes.json();
+      
+      // Calculate scores for each role template
+      const scoredRoles = roleTemplates.map((role: any) => {
+        const score = calculateRoleScore(role, roleSkillTemplates);
+        return {
+          title: role.title,
+          fitScore: Math.round(score * 100),
+          fitReason: generateFitReason(role.title),
+          skillsToAdd: generateSkillsToAdd(role.title)
+        };
+      });
+      
+      // Sort by score and take top 3
+      const sortedMatches = scoredRoles
+        .sort((a: any, b: any) => b.fitScore - a.fitScore)
+        .slice(0, 3);
+      
+      setMatches(sortedMatches);
+    } catch (error) {
+      console.error('Failed to calculate matches:', error);
+      // Fallback to mock data
+      const mockMatches: CareerMatch[] = [
+        {
+          title: 'Product Manager',
+          fitScore: 92,
+          fitReason: 'High Investigative and Enterprising interests, collaborative work style, values Impact',
+          skillsToAdd: [
+            { skill: 'Stakeholder Storytelling', resource: 'https://storytelling-with-data.com' },
+            { skill: 'Analytics', resource: 'https://mixpanel.com/learn' }
+          ]
+        },
+        {
+          title: 'Business Analyst',
+          fitScore: 87,
+          fitReason: 'Strong analytical thinking and communication skills alignment',
+          skillsToAdd: [
+            { skill: 'Data Visualization', resource: 'https://tableau.com/learn' },
+            { skill: 'Process Mapping', resource: 'https://lucidchart.com/blog' }
+          ]
+        },
+        {
+          title: 'Tech Recruiter',
+          fitScore: 82,
+          fitReason: 'Excellent people skills and growth-oriented mindset',
+          skillsToAdd: [
+            { skill: 'Technical Interviewing', resource: 'https://interviewing.io' },
+            { skill: 'Sourcing', resource: 'https://sourcingcertification.com' }
+          ]
+        }
+      ];
+      setMatches(mockMatches);
+    }
+  };
+
+  const calculateRoleScore = (role: any, roleSkillTemplates: any[]): number => {
+    // 0.50 * interestFit + 0.20 * workStyleFit + 0.20 * valuesCriteriaFit + 0.10 * skillsAdjacency
     
-    setMatches(mockMatches);
+    const interestFit = calculateInterestFit(role);
+    const workStyleFit = calculateWorkStyleFit();
+    const valuesCriteriaFit = calculateValuesCriteriaFit(role.title);
+    const skillsAdjacency = calculateSkillsAdjacency(role.title, roleSkillTemplates);
+    
+    let score = 0.50 * interestFit + 0.20 * workStyleFit + 0.20 * valuesCriteriaFit + 0.10 * skillsAdjacency;
+    
+    // Apply deterministic boosts
+    if ((quizState.background === 'Software Engineering') && role.title === 'Product Manager') {
+      score += 0.03;
+    } else if ((quizState.background === 'Software Engineering') && role.title === 'Business Analyst') {
+      score += 0.02;
+    } else if ((quizState.background === 'Software Engineering') && role.title === 'Tech Recruiter') {
+      score += 0.01;
+    }
+    
+    return Math.min(score, 1.0);
+  };
+
+  const calculateInterestFit = (role: any): number => {
+    // Convert picked interests to RIASEC scores
+    const riasecScores = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
+    
+    quizState.picked_interests.forEach(interest => {
+      if (interest.includes('(R)')) riasecScores.R += 2;
+      if (interest.includes('(I)')) riasecScores.I += 2;
+      if (interest.includes('(A)')) riasecScores.A += 2;
+      if (interest.includes('(S)')) riasecScores.S += 2;
+      if (interest.includes('(E)')) riasecScores.E += 2;
+      if (interest.includes('(C)')) riasecScores.C += 2;
+    });
+
+    // Calculate cosine similarity with role weights
+    const userVector: number[] = Object.values(riasecScores);
+    const roleVector: number[] = Object.values(role.weights) as number[];
+    
+    const dotProduct = userVector.reduce((sum: number, val: number, i: number) => sum + val * (roleVector[i] || 0), 0);
+    const userMagnitude = Math.sqrt(userVector.reduce((sum: number, val: number) => sum + val * val, 0));
+    const roleMagnitude = Math.sqrt(roleVector.reduce((sum: number, val: number) => sum + val * val, 0));
+    
+    if (userMagnitude === 0 || roleMagnitude === 0) return 0.5;
+    return dotProduct / (userMagnitude * roleMagnitude);
+  };
+
+  const calculateWorkStyleFit = (): number => {
+    let fit = 0.5; // base score
+    
+    // Conscientiousness match
+    if (quizState.work_style.conscientiousness === 'high') fit += 0.2;
+    else if (quizState.work_style.conscientiousness === 'medium') fit += 0.1;
+    
+    // Extraversion match  
+    if (quizState.work_style.extraversion === 'high') fit += 0.2;
+    else if (quizState.work_style.extraversion === 'medium') fit += 0.1;
+    
+    return Math.min(fit, 1.0);
+  };
+
+  const calculateValuesCriteriaFit = (roleTitle: string): number => {
+    let fit = 0.8; // base score
+    
+    // Values alignment
+    if (quizState.values.includes('Impact') || quizState.values.includes('Autonomy')) {
+      if (roleTitle === 'Product Manager' || roleTitle === 'Business Analyst') {
+        fit += 0.1; // no penalty for these roles
+      }
+    }
+    
+    // Work mode preference (light penalty for mismatches)
+    if (quizState.criteria.work_mode === 'remote' && roleTitle.includes('Support')) {
+      fit -= 0.1;
+    }
+    
+    return Math.max(fit, 0.3);
+  };
+
+  const calculateSkillsAdjacency = (roleTitle: string, roleSkillTemplates: any[]): number => {
+    const roleTemplate = roleSkillTemplates.find(r => r.title === roleTitle);
+    if (!roleTemplate) return 0.6; // base score for no template
+    
+    const skillScores = { 'Beginner': 0.5, 'Working': 1.0, 'Strong': 1.3 };
+    const userSkillMap = new Map(quizState.skills.map(s => [s.name, skillScores[s.level]]));
+    
+    const intersectingSkills = roleTemplate.skills.filter((skill: string) => userSkillMap.has(skill));
+    
+    if (intersectingSkills.length === 0) return 0.6;
+    
+    const averageScore = intersectingSkills.reduce((sum: number, skill: string) => 
+      sum + userSkillMap.get(skill)!, 0) / intersectingSkills.length;
+    
+    return Math.min(Math.max(averageScore, 0.5), 1.3);
+  };
+
+  const generateFitReason = (roleTitle: string) => {
+    if (roleTitle === 'Product Manager') {
+      return 'High Investigative and Enterprising interests, collaborative work style, values Impact';
+    } else if (roleTitle === 'Business Analyst') {
+      return 'Strong analytical thinking and communication skills alignment';
+    } else if (roleTitle === 'Tech Recruiter') {
+      return 'Excellent people skills and growth-oriented mindset';
+    }
+    return 'Good alignment with your interests and work style';
+  };
+
+  const generateSkillsToAdd = (roleTitle: string) => {
+    // Filter out skills the user already has at Strong level
+    const strongSkills = quizState.skills.filter(s => s.level === 'Strong').map(s => s.name);
+    
+    if (roleTitle === 'Product Manager') {
+      const pmSkills = [
+        { skill: 'Stakeholder Storytelling', resource: 'https://storytelling-with-data.com' },
+        { skill: 'Analytics', resource: 'https://mixpanel.com/learn' },
+        { skill: 'Product Strategy', resource: 'https://productschool.com' },
+        { skill: 'User Research', resource: 'https://uxresearch.com' }
+      ];
+      return pmSkills.filter(s => !strongSkills.includes(s.skill)).slice(0, 2);
+    } else if (roleTitle === 'Business Analyst') {
+      const baSkills = [
+        { skill: 'Data Visualization', resource: 'https://tableau.com/learn' },
+        { skill: 'Process Mapping', resource: 'https://lucidchart.com/blog' },
+        { skill: 'Business Requirements', resource: 'https://business-analysis.com' }
+      ];
+      return baSkills.filter(s => !strongSkills.includes(s.skill)).slice(0, 2);
+    } else if (roleTitle === 'Tech Recruiter') {
+      const trSkills = [
+        { skill: 'Technical Interviewing', resource: 'https://interviewing.io' },
+        { skill: 'Sourcing', resource: 'https://sourcingcertification.com' }
+      ];
+      return trSkills.filter(s => !strongSkills.includes(s.skill)).slice(0, 2);
+    }
+    
+    return [
+      { skill: 'Communication', resource: 'https://coursera.org/communication' },
+      { skill: 'Problem Solving', resource: 'https://edx.org/critical-thinking' }
+    ];
   };
 
   const starterPlan = [

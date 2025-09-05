@@ -27,7 +27,7 @@ export const Criteria: React.FC = () => {
     setCriteria('work_mode', selectedWorkMode);
     setCriteria('salary_band', selectedSalaryBand);
     setCurrentStep(8);
-    navigate('/quiz/domains');
+    navigate('/quiz/background-skills');
   };
 
   const handleBack = () => {

@@ -12,7 +12,7 @@ import { WorkStyleOne } from "./pages/WorkStyleOne";
 import { WorkStyleTwo } from "./pages/WorkStyleTwo";
 import { Values } from "./pages/Values";
 import { Criteria } from "./pages/Criteria";
-import { Domains } from "./pages/Domains";
+import { BackgroundSkills } from "./pages/BackgroundSkills";
 import { Experience } from "./pages/Experience";
 import { Review } from "./pages/Review";
 import { Results } from "./pages/Results";
@@ -33,7 +33,7 @@ const App = () => (
           <Route path="/quiz/work-style-2" element={<WorkStyleTwo />} />
           <Route path="/quiz/values" element={<Values />} />
           <Route path="/quiz/criteria" element={<Criteria />} />
-          <Route path="/quiz/domains" element={<Domains />} />
+          <Route path="/quiz/background-skills" element={<BackgroundSkills />} />
           <Route path="/quiz/experience" element={<Experience />} />
           <Route path="/quiz/review" element={<Review />} />
           <Route path="/quiz/results" element={<Results />} />

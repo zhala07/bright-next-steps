@@ -12,6 +12,11 @@ export interface Criteria {
   work_mode: 'remote' | 'hybrid' | 'onsite';
 }
 
+export interface Skill {
+  name: string;
+  level: 'Beginner' | 'Working' | 'Strong';
+}
+
 export interface QuizState {
   // Progress tracking
   currentStep: number;
@@ -24,7 +29,8 @@ export interface QuizState {
   work_style: Partial<WorkStyle>;
   values: string[];
   criteria: Partial<Criteria>;
-  domain: string[];
+  background?: string;
+  skills: Skill[];
   experience_band?: 'student' | '1_to_3' | '3_to_7' | '7_plus';
   
   // Results
@@ -43,7 +49,8 @@ export interface QuizActions {
   setWorkStyle: (key: keyof WorkStyle, value: string) => void;
   setValues: (values: string[]) => void;
   setCriteria: (key: keyof Criteria, value: string) => void;
-  setDomain: (domains: string[]) => void;
+  setBackground: (background: string) => void;
+  setSkills: (skills: Skill[]) => void;
   setExperienceBand: (band: QuizState['experience_band']) => void;
   loadSeedData: () => void;
   resetQuiz: () => void;
@@ -58,7 +65,7 @@ const initialState: QuizState = {
   work_style: {},
   values: [],
   criteria: {},
-  domain: [],
+  skills: [],
 };
 
 export const useQuizStore = create<QuizState & QuizActions>()(
@@ -100,8 +107,13 @@ export const useQuizStore = create<QuizState & QuizActions>()(
         get().saveToLocalStorage();
       },
       
-      setDomain: (domain) => {
-        set({ domain });
+      setBackground: (background) => {
+        set({ background });
+        get().saveToLocalStorage();
+      },
+      
+      setSkills: (skills) => {
+        set({ skills });
         get().saveToLocalStorage();
       },
       
@@ -121,7 +133,8 @@ export const useQuizStore = create<QuizState & QuizActions>()(
             work_style: seedData.work_style,
             values: seedData.values,
             criteria: seedData.criteria,
-            domain: seedData.domain,
+            background: seedData.background,
+            skills: seedData.skills || [],
             experience_band: seedData.experience_band === '3–7' ? '3_to_7' : seedData.experience_band,
             currentStep: 10, // Go to results
           });
@@ -151,7 +164,8 @@ export const useQuizStore = create<QuizState & QuizActions>()(
               work_style: state.work_style,
               values: state.values,
               criteria: state.criteria,
-              domain: state.domain,
+              background: state.background,
+              skills: state.skills,
               experience_band: state.experience_band,
               results: state.results,
             });
@@ -173,7 +187,8 @@ export const useQuizStore = create<QuizState & QuizActions>()(
         work_style: state.work_style,
         values: state.values,
         criteria: state.criteria,
-        domain: state.domain,
+        background: state.background,
+        skills: state.skills,
         experience_band: state.experience_band,
       }),
     }
