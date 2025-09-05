@@ -129,13 +129,13 @@ export const useQuizStore = create<QuizState & QuizActions>()(
           const seedData = await response.json();
           set({
             current_role: seedData.current_role,
-            goal: seedData.goal,
+            goal: seedData.goal === 'Switch soon' ? 'switch_soon' : seedData.goal,
             riasec_vector: seedData.riasec_vector,
             work_style: seedData.work_style,
             values: seedData.values,
             criteria: seedData.criteria,
             domain: seedData.domain,
-            experience_band: seedData.experience_band,
+            experience_band: seedData.experience_band === '3 to 7' ? '3_to_7' : seedData.experience_band,
             currentStep: 21, // Go to results
           });
         } catch (error) {

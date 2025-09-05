@@ -62,18 +62,18 @@ export const Results: React.FC = () => {
   const starterPlan = [
     { day: 1, action: 'Skim 3 PM job posts and list 5 repeated responsibilities', duration: '20 min' },
     { day: 2, action: 'Do a 20 minute SQL intro lesson', duration: '20 min' },
-    { day: 3, action: 'Write a one page product critique', duration: '25 min' },
-    { day: 4, action: 'Research 3 product management frameworks', duration: '20 min' },
-    { day: 5, action: 'Practice explaining a technical concept simply', duration: '15 min' },
-    { day: 6, action: 'Read 2 product management case studies', duration: '25 min' },
-    { day: 7, action: 'Connect with a PM on LinkedIn and ask one question', duration: '15 min' },
-    { day: 8, action: 'Analyze a mobile app you use daily', duration: '20 min' },
-    { day: 9, action: 'Complete a data analysis tutorial', duration: '25 min' },
-    { day: 10, action: 'Create a simple product roadmap', duration: '25 min' },
-    { day: 11, action: 'Practice stakeholder communication', duration: '20 min' },
-    { day: 12, action: 'Study user research methods', duration: '20 min' },
-    { day: 13, action: 'Draft a product requirements document', duration: '25 min' },
-    { day: 14, action: 'Reflect on learnings and next steps', duration: '15 min' }
+    { day: 3, action: 'Write a one page product critique of an app you use', duration: '25 min' },
+    { day: 4, action: 'Map a user journey for that app in 6 boxes', duration: '20 min' },
+    { day: 5, action: 'Draft a problem statement and success metric for one pain point', duration: '25 min' },
+    { day: 6, action: 'Create a lightweight PRD outline with goals, scope, out of scope', duration: '25 min' },
+    { day: 7, action: 'Schedule 2 short informational chats and prepare 5 questions each', duration: '15 min' },
+    { day: 8, action: 'Practice a 90 second product story aloud and record it', duration: '20 min' },
+    { day: 9, action: 'Take a free analytics tutorial and recreate 1 funnel chart', duration: '25 min' },
+    { day: 10, action: 'Run a tiny competitive teardown with 3 screenshots and 3 insights', duration: '25 min' },
+    { day: 11, action: 'Prioritize 6 hypothetical backlog items using RICE', duration: '20 min' },
+    { day: 12, action: 'Write 3 acceptance criteria for a small feature', duration: '20 min' },
+    { day: 13, action: 'Present a 3 slide update to a friend and ask for feedback', duration: '25 min' },
+    { day: 14, action: 'Ship a public post summarizing your learnings and next steps', duration: '15 min' }
   ];
 
   const topRiasec = Object.entries(quizState.riasec_vector)
