@@ -9,9 +9,10 @@
 @layer base {
   :root {
     /* Core Canvas & Surface Colors */
-    --cardBackground: #efe1d5;
-    --text: #1f2937;
-    --brand: #c86a2e;
+    --cardBackground: #efe1d5;   /* sand */
+    --brand: #c86a2e;            /* button and pill */
+    --brandHover: #a55422;
+    --text: #1f2937;             /* body text */
     --bg: 173 30% 54%; /* #5fb2ac - Teal canvas */
     --surface: 0 0% 100%; /* #ffffff - White surface */
     

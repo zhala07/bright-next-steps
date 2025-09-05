@@ -22,11 +22,10 @@ export const QuizCard: React.FC<QuizCardProps> = ({
 
   return (
     <div className={cn(
-      'rounded-[24px] shadow-[0_10px_30px_rgba(0,0,0,0.10)] p-6 md:p-10 transition-all duration-300 hover:scale-[1.02] text-[var(--text)]',
-      variantClasses[variant],
+      'rounded-[24px] bg-[var(--cardBackground)] shadow-[0_10px_30px_rgba(0,0,0,0.10)] p-6 md:p-10 transition-all duration-300 hover:scale-[1.02] text-[var(--text)]',
       className
     )}>
-      <div className="mb-4">
+      <div className="mt-2 ml-2 md:mt-4 md:ml-4 mb-4">
         <BrandMark />
       </div>
       {children}

@@ -16,7 +16,7 @@ const goalOptions = [
     id: 'switch_soon' as const,
     title: 'Switch soon',
     description: 'I need to find a new role within 6 months',
-    icon: '🚀'
+    icon: '⏰'
   },
   {
     id: 'grow_in_place' as const,
@@ -44,7 +44,7 @@ export const Goal: React.FC = () => {
 
   return (
     <QuizLayout>
-      <QuizCard variant="peach">
+      <QuizCard>
         <div className="text-center space-y-8">
           <div className="space-y-4">
             <h1 className="text-2xl md:text-3xl font-bold text-text">
@@ -61,13 +61,14 @@ export const Goal: React.FC = () => {
                 key={option.id}
                 onClick={() => handleSelect(option.id)}
                 className={`
-                  p-6 rounded-xl border-2 transition-all duration-200 text-left
-                  hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary
+                  p-6 rounded-xl border-2 transition-all duration-200 text-left min-h-[112px]
+                  hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[var(--brand)] focus:ring-offset-2
                   ${goal === option.id 
-                    ? 'border-primary bg-primary/10' 
-                    : 'border-border bg-card hover:border-primary/50'
+                    ? 'border-[var(--brand)] bg-[var(--brand)]/10' 
+                    : 'border-gray-300 bg-white hover:border-[var(--brand)]/50'
                   }
                 `}
+                style={{ minWidth: '40px', minHeight: '40px' }}
               >
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
