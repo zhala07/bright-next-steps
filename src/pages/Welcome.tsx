@@ -16,14 +16,9 @@ export const Welcome: React.FC = () => {
     navigate('/quiz/goal');
   };
 
-  const handlePreview = async () => {
-    await loadSeedData();
-    navigate('/quiz/results');
-  };
-
   return (
     <QuizLayout showProgress={false}>
-      <QuizCard variant="mint">
+      <QuizCard>
         <div className="text-center space-y-8">
           {/* Illustration placeholder */}
           <div className="illustration-placeholder">
@@ -31,11 +26,11 @@ export const Welcome: React.FC = () => {
           </div>
           
           <div className="space-y-4">
-            <h1 className="text-3xl md:text-4xl font-bold text-text">
-              Find your career path
+            <h1 className="text-3xl font-semibold text-text">
+              Masarly
             </h1>
-            <p className="text-lg text-text-muted max-w-2xl mx-auto">
-              Find a realistic career path in about 8–10 minutes. You will get 1 primary path, 2 hidden paths, and a 14-day starter plan.
+            <p className="mt-2 text-base text-text-muted">
+              Your career finder.
             </p>
           </div>
 
@@ -55,38 +50,10 @@ export const Welcome: React.FC = () => {
               </label>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" onClick={handleStart} className="btn-bounce">
-                Start Quiz
+            <div className="flex justify-center">
+              <Button size="lg" onClick={handleStart} className="btn-bounce min-h-[40px] px-8">
+                Take the quiz
               </Button>
-              <Button variant="outline" size="lg" onClick={handlePreview}>
-                Preview Results
-              </Button>
-            </div>
-          </div>
-
-          {/* Features */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8">
-            <div className="text-center space-y-2">
-              <div className="text-2xl">🎯</div>
-              <h3 className="font-semibold text-text">Personalized</h3>
-              <p className="text-sm text-text-muted">
-                Based on your interests, work style, and values
-              </p>
-            </div>
-            <div className="text-center space-y-2">
-              <div className="text-2xl">⚡</div>
-              <h3 className="font-semibold text-text">Quick</h3>
-              <p className="text-sm text-text-muted">
-                Just 8-10 minutes to complete
-              </p>
-            </div>
-            <div className="text-center space-y-2">
-              <div className="text-2xl">📈</div>
-              <h3 className="font-semibold text-text">Actionable</h3>
-              <p className="text-sm text-text-muted">
-                Get a 14-day starter plan to begin your journey
-              </p>
             </div>
           </div>
         </div>

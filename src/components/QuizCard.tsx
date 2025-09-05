@@ -13,15 +13,15 @@ export const QuizCard: React.FC<QuizCardProps> = ({
   variant = 'default' 
 }) => {
   const variantClasses = {
-    default: 'bg-card',
-    peach: 'quiz-card-peach',
-    mint: 'quiz-card-mint', 
-    sand: 'quiz-card-sand'
+    default: 'bg-[var(--cardBackground)]',
+    peach: 'bg-[var(--cardBackground)]',
+    mint: 'bg-[var(--cardBackground)]', 
+    sand: 'bg-[var(--cardBackground)]'
   };
 
   return (
     <div className={cn(
-      'quiz-card transition-all duration-300 hover:scale-[1.02]',
+      'rounded-[24px] shadow-[0_10px_30px_rgba(0,0,0,0.10)] p-6 md:p-10 transition-all duration-300 hover:scale-[1.02]',
       variantClasses[variant],
       className
     )}>

@@ -9,6 +9,7 @@
 @layer base {
   :root {
     /* Core Canvas & Surface Colors */
+    --cardBackground: #efe1d5;
     --bg: 173 30% 54%; /* #5fb2ac - Teal canvas */
     --surface: 0 0% 100%; /* #ffffff - White surface */
     
