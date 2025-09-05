@@ -1,0 +1,5 @@
+[
+  {"title":"Product Manager","weights":{"I":0.35,"E":0.30,"S":0.15,"C":0.10,"A":0.10,"R":0.00}},
+  {"title":"Business Analyst","weights":{"I":0.35,"C":0.25,"E":0.15,"S":0.15,"A":0.05,"R":0.05}},
+  {"title":"Tech Recruiter","weights":{"E":0.40,"S":0.30,"C":0.15,"I":0.10,"A":0.05,"R":0.00}}
+]

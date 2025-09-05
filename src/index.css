@@ -1,42 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Career Quiz Design System - Matching Reference Image */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
+    /* Core Canvas & Surface Colors */
+    --bg: 173 30% 54%; /* #5fb2ac - Teal canvas */
+    --surface: 0 0% 100%; /* #ffffff - White surface */
+    
+    /* Card Theme Colors */
+    --card-peach: 31 74% 79%; /* #f7cf9e */
+    --card-mint: 173 49% 81%; /* #bfe7e3 */
+    --card-sand: 31 42% 89%; /* #efe1d5 */
+    
+    /* Text & Content */
+    --text: 220 13% 18%; /* #1f2937 */
+    --text-muted: 215 11% 44%; /* #6b7280 */
+    
+    /* Primary Action Colors */
+    --primary: 22 62% 48%; /* #c86a2e */
+    --primary-hover: 22 65% 40%; /* #a55422 */
+    --primary-foreground: 0 0% 100%;
+    
+    /* System Colors */
+    --background: 173 30% 54%;
+    --foreground: 220 13% 18%;
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
+    --card-foreground: 220 13% 18%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 220 13% 18%;
+    --secondary: 31 42% 89%;
+    --secondary-foreground: 220 13% 18%;
+    --muted: 215 11% 44%;
+    --muted-foreground: 215 11% 44%;
+    --accent: 173 49% 81%;
+    --accent-foreground: 220 13% 18%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 215 20% 85%;
+    --input: 215 20% 85%;
+    --ring: 22 62% 48%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
+    /* Design System Tokens */
     --radius: 0.5rem;
+    --radius-xl: 1.5rem; /* 24px */
+    
+    /* Shadows */
+    --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.10);
+    --shadow-button: 0 4px 12px rgba(0, 0, 0, 0.08);
+    
+    /* Typography Scale */
+    --text-h1: 1.875rem; /* 30px */
+    --text-h2: 1.5rem;   /* 24px */
+    --text-body: 1rem;   /* 16px */
+    --text-sm: 0.875rem; /* 14px */
+    
+    /* Transitions */
+    --transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +125,54 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-inter antialiased;
+    font-size: var(--text-body);
+    line-height: 1.6;
+  }
+  
+  h1 { 
+    font-size: var(--text-h1);
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  
+  h2 { 
+    font-size: var(--text-h2);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+}
+
+@layer components {
+  /* Quiz Card Variants */
+  .quiz-card {
+    @apply bg-card rounded-[24px] p-8 transition-all duration-200;
+    box-shadow: var(--shadow-card);
+  }
+  
+  .quiz-card-peach {
+    background: hsl(var(--card-peach));
+  }
+  
+  .quiz-card-mint {
+    background: hsl(var(--card-mint));
+  }
+  
+  .quiz-card-sand {
+    background: hsl(var(--card-sand));
+  }
+  
+  /* Button Effects */
+  .btn-bounce {
+    transition: var(--transition-bounce);
+  }
+  
+  .btn-bounce:active {
+    transform: scale(0.95);
+  }
+  
+  /* Focus Visible for Accessibility */
+  .focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2;
   }
 }
