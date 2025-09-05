@@ -72,10 +72,10 @@ export const Goal: React.FC = () => {
               >
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
-                    <span className="text-2xl">{option.icon}</span>
-                    <h3 className="font-semibold text-text">{option.title}</h3>
+                    <span className="text-2xl" role="img" aria-hidden="true">{option.icon}</span>
+                    <h3 className="font-semibold text-[var(--text)]" style={{ fontSize: '16px', lineHeight: '1.4' }}>{option.title}</h3>
                   </div>
-                  <p className="text-sm text-text-muted">{option.description}</p>
+                  <p className="text-sm text-gray-600" style={{ lineHeight: '1.4', fontSize: '16px' }}>{option.description}</p>
                 </div>
               </button>
             ))}
