@@ -20,11 +20,6 @@ export const Welcome: React.FC = () => {
     <QuizLayout showProgress={false}>
       <QuizCard>
         <div className="text-center space-y-8">
-          {/* Illustration placeholder */}
-          <div className="illustration-placeholder">
-            <div className="text-6xl">🚀</div>
-          </div>
-          
           <div className="space-y-4">
             <h1 className="text-3xl font-semibold text-text">
               Masarly

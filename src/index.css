@@ -10,6 +10,8 @@
   :root {
     /* Core Canvas & Surface Colors */
     --cardBackground: #efe1d5;
+    --text: #1f2937;
+    --brand: #c86a2e;
     --bg: 173 30% 54%; /* #5fb2ac - Teal canvas */
     --surface: 0 0% 100%; /* #ffffff - White surface */
     

@@ -1,5 +1,6 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
+import { BrandMark } from './BrandMark';
 
 interface QuizCardProps {
   children: React.ReactNode;
@@ -21,10 +22,13 @@ export const QuizCard: React.FC<QuizCardProps> = ({
 
   return (
     <div className={cn(
-      'rounded-[24px] shadow-[0_10px_30px_rgba(0,0,0,0.10)] p-6 md:p-10 transition-all duration-300 hover:scale-[1.02]',
+      'rounded-[24px] shadow-[0_10px_30px_rgba(0,0,0,0.10)] p-6 md:p-10 transition-all duration-300 hover:scale-[1.02] text-[var(--text)]',
       variantClasses[variant],
       className
     )}>
+      <div className="mb-4">
+        <BrandMark />
+      </div>
       {children}
     </div>
   );
