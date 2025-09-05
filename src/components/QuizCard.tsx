@@ -25,8 +25,8 @@ export const QuizCard: React.FC<QuizCardProps> = ({
       'rounded-[24px] bg-[var(--cardBackground)] shadow-[0_10px_30px_rgba(0,0,0,0.10)] p-6 md:p-10 transition-all duration-300 hover:scale-[1.02] text-[var(--text)]',
       className
     )}>
-      <div className="flex justify-center mb-6">
-        <h1 className="text-3xl md:text-4xl font-semibold text-[var(--text)]">
+      <div className="mb-6">
+        <h1 className="text-xl md:text-2xl font-semibold text-[var(--text)]">
           Masarly
         </h1>
       </div>
