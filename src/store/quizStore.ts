@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { supabase } from '@/lib/supabase';
 
 export interface RiasecVector {
   R: number; // Realistic
@@ -58,6 +59,7 @@ export interface QuizActions {
   loadSeedData: () => void;
   resetQuiz: () => void;
   saveToLocalStorage: () => void;
+  saveToSupabase: () => Promise<void>;
 }
 
 const initialState: QuizState = {
@@ -148,6 +150,31 @@ export const useQuizStore = create<QuizState & QuizActions>()(
       
       saveToLocalStorage: () => {
         // Auto-save is handled by persist middleware
+      },
+      
+      saveToSupabase: async () => {
+        const state = get();
+        try {
+          const { error } = await supabase
+            .from('quiz_responses')
+            .upsert({
+              current_role: state.current_role,
+              goal: state.goal,
+              riasec_vector: state.riasec_vector,
+              work_style: state.work_style,
+              values: state.values,
+              criteria: state.criteria,
+              domain: state.domain,
+              experience_band: state.experience_band,
+              results: state.results,
+            });
+          
+          if (error) {
+            console.error('Error saving to Supabase:', error);
+          }
+        } catch (error) {
+          console.error('Failed to save to Supabase:', error);
+        }
       },
     }),
     {
