@@ -13,7 +13,7 @@ export const Welcome: React.FC = () => {
 
   const handleStart = () => {
     setCurrentStep(2);
-    navigate('/quiz/1');
+    navigate('/quiz/goal');
   };
 
   return (
